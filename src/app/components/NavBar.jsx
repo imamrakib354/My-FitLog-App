@@ -65,13 +65,13 @@ const Navbar = () => {
                         <Image
                             src="/logo.png"
                             alt="FitLog Logo"
-                            width={36}
-                            height={36}
+                            width={30}
+                            height={30}
                             className="object-contain"
                             priority
                         />
 
-                        <span className="font-oswald text-2xl font-semibold text-white">
+                        <span className="font-oswald text-xl font-semibold text-white">
                             FITLOG
                         </span>
                     </Link>
