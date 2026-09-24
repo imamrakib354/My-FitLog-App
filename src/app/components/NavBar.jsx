@@ -4,12 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Oswald } from 'next/font/google';
-
-const oswald = Oswald({
-    subsets: ['latin'],
-    weight: ['500', '600', '700'],
-});
 
 
 const Navbar = () => {
@@ -33,7 +27,7 @@ const Navbar = () => {
 
     return (
         <nav className="bg-[#080a0d] border-b border-gray-800">
-            <div className="navbar max-w-7xl mx-auto px-6 py-2">
+            <div className="navbar max-w-360 mx-auto px-6 py-2">
 
                 <div className="navbar-start">
 
@@ -77,7 +71,7 @@ const Navbar = () => {
                             priority
                         />
 
-                        <span className={`${oswald.className} text-2xl font-semibold text-white`}>
+                        <span className="font-oswald text-2xl font-semibold text-white">
                             FITLOG
                         </span>
                     </Link>
