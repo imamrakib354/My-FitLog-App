@@ -1,3 +1,4 @@
+import ExerciseActions from '@/app/components/ExerciseActions';
 import Image from 'next/image';
 
 const ExerciseDetailPage = async ({ params }) => {
@@ -161,13 +162,7 @@ const ExerciseDetailPage = async ({ params }) => {
 
                     <div className="mt-8 flex gap-4">
 
-                        <button className="rounded-xl bg-[#ccff00] px-6 py-3 font-inter font-semibold text-black transition hover:bg-[#b8e600]">
-                            Add to today&apos;s plan
-                        </button>
-
-                        <button className="rounded-xl border border-[#3a3f47] px-6 py-3 font-inter font-semibold text-[#d1d5db] transition hover:bg-[#15181e]">
-                            Save for later
-                        </button>
+                        <ExerciseActions exercise={exercise} />
 
                     </div>
 

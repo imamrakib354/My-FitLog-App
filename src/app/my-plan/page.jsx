@@ -1,56 +1,34 @@
 'use client';
-import MyPlanCard from '../components/MyPlanCard';
 import EmptyPlan from '../components/EmptyPlan';
 import React, { useState } from 'react';
-
-const todayPlanData = [
-    {
-        id: 1,
-        name: 'Russian Twist',
-        equipment: 'Medicine Ball',
-        image: '/banner.png',
-        duration: 8,
-        caloriesBurned: 70,
-        rating: 4.1,
-    },
-    {
-        id: 2,
-        name: 'Pull-Up',
-        equipment: 'Pull-up Bar',
-        image: '/banner.png',
-        duration: 15,
-        caloriesBurned: 120,
-        rating: 4.7,
-    },
-];
-
-
-const savedData = [
-    {
-        id: 1,
-        name: 'Russian Twist',
-        equipment: 'Medicine Ball',
-        image: '/banner.png',
-        duration: 8,
-        caloriesBurned: 70,
-        rating: 4.1,
-    },
-    {
-        id: 2,
-        name: 'Pull-Up',
-        equipment: 'Pull-up Bar',
-        image: '/banner.png',
-        duration: 15,
-        caloriesBurned: 120,
-        rating: 4.7,
-    },
-];
+import useWorkout from '../hooks/useWorkout';
 
 const MyPlan = () => {
 
     const [activeTab, setActiveTab] = useState("today");
 
-    const [sortBy, setSortBY] = useState("duration");
+    const { todayPlan, savedWorkouts } = useWorkout();
+
+
+    const currentWorkouts =
+        activeTab === "today"
+            ? todayPlan
+            : savedWorkouts;
+
+
+    const totalExercises = currentWorkouts.length;
+
+
+    const totalMinutes = currentWorkouts.reduce(
+        (total, exercise) => total + exercise.duration,
+        0
+    );
+
+    const totalCalories = currentWorkouts.reduce(
+        (total, exercise) => total + exercise.caloriesBurned,
+        0
+    );
+
 
     return (
         <section className='max-w-360 mx-auto px-6 pt-8 pb-4'>
@@ -69,7 +47,7 @@ const MyPlan = () => {
                     </p>
 
                     <p className="font-oswald text-4xl font-bold text-[#ccff00]">
-                        2
+                        {totalExercises}
                     </p>
                 </div>
 
@@ -79,7 +57,7 @@ const MyPlan = () => {
                     </p>
 
                     <p className="font-oswald text-4xl text-white font-bold">
-                        23
+                        {totalMinutes}
                     </p>
                 </div>
 
@@ -89,7 +67,7 @@ const MyPlan = () => {
                     </p>
 
                     <p className="font-oswald text-4xl text-white font-bold">
-                        190
+                        {totalCalories}
                     </p>
                 </div>
 
@@ -147,8 +125,39 @@ const MyPlan = () => {
                 </div>
 
             </div>
-            
-            <EmptyPlan></EmptyPlan>
+
+            {
+                currentWorkouts.length === 0 ? (
+
+                    <EmptyPlan />
+
+                ) : (
+
+                    <div className="mt-6 space-y-3">
+
+                        {
+                            currentWorkouts.map((exercise) => (
+
+                                <div
+                                    key={exercise.id}
+                                    className="rounded-xl border border-[#252a31] bg-[#15181e] p-4"
+                                >
+                                    <p className="font-oswald text-xl font-bold uppercase text-white">
+                                        {exercise.name}
+                                    </p>
+
+                                    <p className="mt-1 text-sm text-[#9CA3AF]">
+                                        {exercise.duration} min • {exercise.caloriesBurned} kcal • {exercise.rating}
+                                    </p>
+                                </div>
+
+                            ))
+                        }
+
+                    </div>
+
+                )
+            }
 
         </section>
     );
