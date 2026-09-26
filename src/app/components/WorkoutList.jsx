@@ -4,31 +4,15 @@ import ExerciseCard from './ExerciseCard';
 
 const getData = async () => {
 
-    try {
-
-        const res = await fetch(
-            'https://api.api-store.workers.dev/api/fitlog',
-            {
-                next: {
-                    revalidate: 3600
-                }
-            }
-        );
-
+        const res = await fetch('https://api.api-store.workers.dev/api/fitlog');
 
         if (!res.ok) {
             return [];
         }
 
+        const data = await res.json();
 
-        return res.json();
-
-    } catch (error) {
-
-        console.log("Workout API error:", error);
-
-        return [];
-    }
+        return data;
 };
 
 
