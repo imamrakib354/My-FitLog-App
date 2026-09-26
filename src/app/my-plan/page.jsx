@@ -11,7 +11,7 @@ const MyPlan = () => {
 
     const [activeTab, setActiveTab] = useState("today");
 
-    const { todayPlan, savedWorkouts, doneExercises, markAsDone, removeFromPlan,removeFromSaved } = useWorkout();
+    const { todayPlan, savedWorkouts, doneExercises, markAsDone, removeFromPlan, removeFromSaved } = useWorkout();
 
     const [sortBy, setSortBy] = useState("duration");
 
@@ -162,7 +162,7 @@ const MyPlan = () => {
                                 return (
                                     <div
                                         key={exercise.id}
-                                        className="flex items-center justify-between rounded-xl border border-[#252a31] bg-[#15181e] p-4"
+                                        className="flex items-center justify-between rounded-xl border border-[#252a31] bg-[#15181e] lg:p-4 p-2"
                                     >
 
                                         <div className="flex items-center gap-4">
@@ -235,22 +235,25 @@ const MyPlan = () => {
 
                                         <div className="flex items-center gap-3">
 
-                                            <Link
-                                                href={`/Exercise/${exercise.id}`}
-                                                className="rounded-full border border-[#3A414D] px-5 py-2 text-sm text-white hover:bg-[#151313e1]"
-                                            >
-                                                View Details
-                                            </Link>
-
-                                            {activeTab === "today" && (
-                                                <button
-                                                    onClick={() => markAsDone(exercise.id)}
-                                                    className="flex items-center gap-2 rounded-full bg-[#ccff00] px-5 py-2 text-sm font-semibold text-black hover:bg-[#c2f106e1]"
+                                            <div className='flex lg:flex-row flex-col gap-2'>
+                                                <Link
+                                                    href={`/Exercise/${exercise.id}`}
+                                                    className="rounded-full border border-[#3A414D] px-5 lg:py-2 py-1 text-sm text-white hover:bg-[#151313e1]"
                                                 >
-                                                    <Check size={16} />
-                                                    {isDone ? "Marked as Done" : "Mark as Done"}
-                                                </button>
-                                            )}
+                                                    View Details
+                                                </Link>
+
+                                                {activeTab === "today" && (
+                                                    <button
+                                                        onClick={() => markAsDone(exercise.id)}
+                                                        className="flex items-center gap-2 rounded-full bg-[#ccff00] px-5 lg:py-2 py-1 text-sm font-semibold text-black hover:bg-[#c2f106e1]"
+                                                    >
+                                                        <Check size={16} />
+                                                        {isDone ? "Marked as Done" : "Mark as Done"}
+                                                    </button>
+                                                )}
+
+                                            </div>
 
                                             <button
                                                 onClick={() => {

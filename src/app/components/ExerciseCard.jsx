@@ -17,7 +17,7 @@ const ExerciseCard = ({ exercise }) => {
     return (
         <Link href={`/Exercise/${exercise.id}`}>
 
-            <div className="overflow-hidden rounded-2xl border border-[#252a31] bg-[#15181e] transition-all duration-300 hover:-translate-y-2 hover:-translate-z-1 hover:shadow-lg">
+            <div className=" mx-4 lg:mx-0 overflow-hidden rounded-2xl border border-[#252a31] bg-[#15181e] transition-all duration-300 hover:-translate-y-2 hover:-translate-z-1 hover:shadow-lg">
 
                 <div className="relative h-55 w-full">
                     <Image
