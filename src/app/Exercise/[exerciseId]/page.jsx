@@ -6,7 +6,7 @@ const ExerciseDetailPage = async ({ params }) => {
     const { exerciseId } = await params;
 
     const res = await fetch(
-        `https://api.abcz.workers.dev/api/fitlog/${exerciseId}`
+        `https://api.api-store.workers.dev/api/fitlog/${exerciseId}`
     );
 
     if (!res.ok) {

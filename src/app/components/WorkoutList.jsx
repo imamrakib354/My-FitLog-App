@@ -7,7 +7,7 @@ const getData = async () => {
     try {
 
         const res = await fetch(
-            'https://api.abcz.workers.dev/api/fitlog',
+            'https://api.api-store.workers.dev/api/fitlog',
             {
                 next: {
                     revalidate: 3600
@@ -61,7 +61,7 @@ const WorkoutList = async () => {
 
     return (
 
-        <section className="max-w-360 mx-auto my-16 px-4 py-2 lg:px-6">
+        <section className="max-w-360 mx-auto my-16 px-4 py-2 lg:px-0">
 
             <p className="font-oswald text-center text-[30px] font-bold text-white lg:text-left">
                 THE LIBRARY

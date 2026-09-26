@@ -47,7 +47,6 @@ const Navbar = () => {
 
             <div className="max-w-360 mx-auto px-4 py-3 lg:px-6">
 
-                {/* ================= MOBILE NAVBAR ================= */}
                 <div className="flex items-center lg:hidden">
 
                     <div className="flex flex-1 justify-start">
@@ -149,8 +148,6 @@ const Navbar = () => {
                 </div>
 
 
-
-                {/* ================= DESKTOP NAVBAR ================= */}
                 <div className="hidden items-center justify-between lg:flex">
 
                     <Link href="/" className="flex items-center gap-2" >
@@ -198,7 +195,7 @@ const Navbar = () => {
                             <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-600 text-white">
                                 {savedWorkouts.length}
                             </span>
-                            
+
                         </Link>
 
                     </div>
