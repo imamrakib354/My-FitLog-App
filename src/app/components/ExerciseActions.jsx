@@ -19,7 +19,7 @@ const ExerciseActions = ({ exercise }) => {
 
                 <button
                     onClick={() => addToSaved(exercise)}
-                    className=" flex gap-2 rounded-lg border border-[#3a414d] px-5 py-3 text-white transition-all duration-300 hover:-translate-y-1 hover:-translate-z-1 hover:shadow-lg hover:bg-[#151414e1]"
+                    className=" flex gap-2 rounded-lg border border-[#3a414d] px-5 py-3 text-white transition-all duration-300 hover:-translate-y-1 hover:-translate-z-1 hover:shadow-lg hover:bg-[#151313e1]"
                 >
                     <Bookmark size={20} strokeWidth={2} />
                     Save for later

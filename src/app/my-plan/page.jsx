@@ -2,6 +2,10 @@
 import EmptyPlan from '../components/EmptyPlan';
 import React, { useState } from 'react';
 import useWorkout from '../hooks/useWorkout';
+import Image from 'next/image';
+import { Clock3, Flame, Star, X, Check } from "lucide-react";
+import Link from 'next/link';
+
 
 const MyPlan = () => {
 
@@ -9,6 +13,7 @@ const MyPlan = () => {
 
     const { todayPlan, savedWorkouts } = useWorkout();
 
+    const [sortBy, setSortBy] = useState("duration");
 
     const currentWorkouts =
         activeTab === "today"
@@ -28,6 +33,23 @@ const MyPlan = () => {
         (total, exercise) => total + exercise.caloriesBurned,
         0
     );
+
+    const sortedWorkouts = [...currentWorkouts].sort((a, b) => {
+
+        if (sortBy === "duration") {
+            return a.duration - b.duration;
+        }
+
+        if (sortBy === "calories") {
+            return a.caloriesBurned - b.caloriesBurned;
+        }
+
+        if (sortBy === "rating") {
+            return b.rating - a.rating;
+        }
+
+        return 0;
+    });
 
 
     return (
@@ -80,7 +102,7 @@ const MyPlan = () => {
                     <button
                         onClick={() => setActiveTab('today')}
                         className={`rounded-md px-5 py-2 text-sm ${activeTab === 'today'
-                            ? 'bg-[#252a31] text-white'
+                            ? 'bg-[#252a31] text-[#ccff00]'
                             : 'text-[#9CA3AF]'
                             }`}
                     >
@@ -90,7 +112,7 @@ const MyPlan = () => {
                     <button
                         onClick={() => setActiveTab('saved')}
                         className={`rounded-md px-5 py-2 text-sm ${activeTab === 'saved'
-                            ? 'bg-[#252a31] text-white'
+                            ? 'bg-[#252a31] text-[#ccff00]'
                             : 'text-[#9CA3AF]'
                             }`}
                     >
@@ -107,6 +129,8 @@ const MyPlan = () => {
                     </span>
 
                     <select
+                        value={sortBy}
+                        onChange={(event) => setSortBy(event.target.value)}
                         className="rounded-lg border border-[#252a31] bg-[#15181e] px-4 py-2 text-sm text-white outline-none"
                     >
                         <option value="duration">
@@ -126,39 +150,119 @@ const MyPlan = () => {
 
             </div>
 
+
             {
-                currentWorkouts.length === 0 ? (
-
+                sortedWorkouts.length === 0 ? (
                     <EmptyPlan />
-
                 ) : (
-
-                    <div className="mt-6 space-y-3">
-
+                    <div className="mt-6 space-y-4">
                         {
-                            currentWorkouts.map((exercise) => (
+                            sortedWorkouts.map((exercise) => (
 
                                 <div
                                     key={exercise.id}
-                                    className="rounded-xl border border-[#252a31] bg-[#15181e] p-4"
+                                    className="flex items-center justify-between rounded-xl border border-[#252a31] bg-[#15181e] p-4"
                                 >
-                                    <p className="font-oswald text-xl font-bold uppercase text-white">
-                                        {exercise.name}
-                                    </p>
 
-                                    <p className="mt-1 text-sm text-[#9CA3AF]">
-                                        {exercise.duration} min • {exercise.caloriesBurned} kcal • {exercise.rating}
-                                    </p>
+                                    <div className="flex items-center gap-4">
+
+                                        <div className="relative h-17.5 w-27.5 shrink-0 overflow-hidden rounded-lg">
+                                            <Image
+                                                src={exercise.image}
+                                                alt={exercise.name}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+
+                                        <div>
+
+                                            <p className="font-oswald text-xl font-bold uppercase text-white">
+                                                {exercise.name}
+                                            </p>
+
+                                            <p className="font-inter text-[11px] text-[#8A92A0]">
+                                                {exercise.equipment}
+                                            </p>
+
+
+                                            <div className="mt-2 flex items-center gap-3 text-[11px] text-[#D1D5DB]">
+
+                                                <div className="flex items-center gap-1">
+                                                    <Clock3
+                                                        size={12}
+                                                        strokeWidth={2}
+                                                        className="text-[#BFFF00]"
+                                                    />
+
+                                                    <span>
+                                                        {exercise.duration} min
+                                                    </span>
+                                                </div>
+
+
+                                                <div className="flex items-center gap-1">
+                                                    <Flame
+                                                        size={12}
+                                                        strokeWidth={2}
+                                                        className="text-[#BFFF00]"
+                                                    />
+
+                                                    <span>
+                                                        {exercise.caloriesBurned} kcal
+                                                    </span>
+                                                </div>
+
+
+                                                <div className="flex items-center gap-1">
+                                                    <Star
+                                                        size={12}
+                                                        strokeWidth={2}
+                                                        className="text-[#BFFF00]"
+                                                    />
+
+                                                    <span>
+                                                        {exercise.rating}
+                                                    </span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+
+                                        <Link
+                                            href={`/exercise/${exercise.id}`}
+                                            className="rounded-full border border-[#3A414D] px-5 py-2 text-sm text-white hover:bg-[#151313e1]"
+                                        >
+                                            View Details
+                                        </Link>
+
+                                        {
+                                            <button className="flex items-center gap-2 rounded-full bg-[#ccff00] px-5 py-2 text-sm font-semibold text-black hover:bg-[#c2f106e1]">
+
+                                                <Check size={16} />
+
+                                                Mark as Done
+
+                                            </button>
+                                        }
+
+                                        <button className="text-[#8A92A0] hover:text-white">
+                                            <X size={18} />
+                                        </button>
+
+                                    </div>
+
                                 </div>
-
                             ))
                         }
-
                     </div>
-
                 )
             }
-
         </section>
     );
 };

@@ -43,7 +43,6 @@ const WorkoutProvider = ({ children }) => {
         });
     };
 
-
     const planInfo = {
         todayPlan,
         savedWorkouts,

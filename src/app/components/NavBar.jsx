@@ -4,9 +4,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import useWorkout from '../hooks/useWorkout';
 
 
 const Navbar = () => {
+
+    const { todayPlan, savedWorkouts } = useWorkout();
+
     const pathname = usePathname();
 
     const links = (
@@ -89,7 +93,7 @@ const Navbar = () => {
                         <span>Plan</span>
 
                         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ccff00] font-bold text-black">
-                            0
+                            {todayPlan.length}
                         </span>
                     </Link>
 
@@ -97,7 +101,7 @@ const Navbar = () => {
                         <span>Saved</span>
 
                         <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-600 text-white">
-                            0
+                            {savedWorkouts.length}
                         </span>
                     </Link>
 
