@@ -30,7 +30,7 @@ const Navbar = () => {
     );
 
     return (
-        <nav className="bg-[#080a0d] border-b border-gray-800">
+        <nav className="sticky top-0 z-10 bg-[#080a0d] border-b border-gray-800">
             <div className="navbar max-w-360 mx-auto px-6 py-2">
 
                 <div className="navbar-start">

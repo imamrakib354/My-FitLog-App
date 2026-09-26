@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
 import WorkoutProvider from "./WorkoutContext/WorkoutContext";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({
   subsets: ["latin"],

@@ -11,7 +11,7 @@ const MyPlan = () => {
 
     const [activeTab, setActiveTab] = useState("today");
 
-    const { todayPlan, savedWorkouts } = useWorkout();
+    const { todayPlan, savedWorkouts, doneExercises, markAsDone, removeFromPlan,removeFromSaved } = useWorkout();
 
     const [sortBy, setSortBy] = useState("duration");
 
@@ -157,108 +157,118 @@ const MyPlan = () => {
                 ) : (
                     <div className="mt-6 space-y-4">
                         {
-                            sortedWorkouts.map((exercise) => (
+                            sortedWorkouts.map((exercise) => {
+                                const isDone = doneExercises.includes(exercise.id);
+                                return (
+                                    <div
+                                        key={exercise.id}
+                                        className="flex items-center justify-between rounded-xl border border-[#252a31] bg-[#15181e] p-4"
+                                    >
 
-                                <div
-                                    key={exercise.id}
-                                    className="flex items-center justify-between rounded-xl border border-[#252a31] bg-[#15181e] p-4"
-                                >
+                                        <div className="flex items-center gap-4">
 
-                                    <div className="flex items-center gap-4">
+                                            <div className="relative h-17.5 w-27.5 shrink-0 overflow-hidden rounded-lg">
+                                                <Image
+                                                    src={exercise.image}
+                                                    alt={exercise.name}
+                                                    fill
+                                                    className="object-cover"
+                                                />
+                                            </div>
 
-                                        <div className="relative h-17.5 w-27.5 shrink-0 overflow-hidden rounded-lg">
-                                            <Image
-                                                src={exercise.image}
-                                                alt={exercise.name}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        </div>
+                                            <div>
 
-                                        <div>
+                                                <p className="font-oswald text-xl font-bold uppercase text-white">
+                                                    {exercise.name}
+                                                </p>
 
-                                            <p className="font-oswald text-xl font-bold uppercase text-white">
-                                                {exercise.name}
-                                            </p>
-
-                                            <p className="font-inter text-[11px] text-[#8A92A0]">
-                                                {exercise.equipment}
-                                            </p>
-
-
-                                            <div className="mt-2 flex items-center gap-3 text-[11px] text-[#D1D5DB]">
-
-                                                <div className="flex items-center gap-1">
-                                                    <Clock3
-                                                        size={12}
-                                                        strokeWidth={2}
-                                                        className="text-[#BFFF00]"
-                                                    />
-
-                                                    <span>
-                                                        {exercise.duration} min
-                                                    </span>
-                                                </div>
+                                                <p className="font-inter text-[11px] text-[#8A92A0]">
+                                                    {exercise.equipment}
+                                                </p>
 
 
-                                                <div className="flex items-center gap-1">
-                                                    <Flame
-                                                        size={12}
-                                                        strokeWidth={2}
-                                                        className="text-[#BFFF00]"
-                                                    />
+                                                <div className="mt-2 flex items-center gap-3 text-[11px] text-[#D1D5DB]">
 
-                                                    <span>
-                                                        {exercise.caloriesBurned} kcal
-                                                    </span>
-                                                </div>
+                                                    <div className="flex items-center gap-1">
+                                                        <Clock3
+                                                            size={12}
+                                                            strokeWidth={2}
+                                                            className="text-[#BFFF00]"
+                                                        />
+
+                                                        <span>
+                                                            {exercise.duration} min
+                                                        </span>
+                                                    </div>
 
 
-                                                <div className="flex items-center gap-1">
-                                                    <Star
-                                                        size={12}
-                                                        strokeWidth={2}
-                                                        className="text-[#BFFF00]"
-                                                    />
+                                                    <div className="flex items-center gap-1">
+                                                        <Flame
+                                                            size={12}
+                                                            strokeWidth={2}
+                                                            className="text-[#BFFF00]"
+                                                        />
 
-                                                    <span>
-                                                        {exercise.rating}
-                                                    </span>
+                                                        <span>
+                                                            {exercise.caloriesBurned} kcal
+                                                        </span>
+                                                    </div>
+
+
+                                                    <div className="flex items-center gap-1">
+                                                        <Star
+                                                            size={12}
+                                                            strokeWidth={2}
+                                                            className="text-[#BFFF00]"
+                                                        />
+
+                                                        <span>
+                                                            {exercise.rating}
+                                                        </span>
+                                                    </div>
+
                                                 </div>
 
                                             </div>
 
                                         </div>
 
-                                    </div>
+                                        <div className="flex items-center gap-3">
 
-                                    <div className="flex items-center gap-3">
+                                            <Link
+                                                href={`/Exercise/${exercise.id}`}
+                                                className="rounded-full border border-[#3A414D] px-5 py-2 text-sm text-white hover:bg-[#151313e1]"
+                                            >
+                                                View Details
+                                            </Link>
 
-                                        <Link
-                                            href={`/exercise/${exercise.id}`}
-                                            className="rounded-full border border-[#3A414D] px-5 py-2 text-sm text-white hover:bg-[#151313e1]"
-                                        >
-                                            View Details
-                                        </Link>
+                                            {activeTab === "today" && (
+                                                <button
+                                                    onClick={() => markAsDone(exercise.id)}
+                                                    className="flex items-center gap-2 rounded-full bg-[#ccff00] px-5 py-2 text-sm font-semibold text-black hover:bg-[#c2f106e1]"
+                                                >
+                                                    <Check size={16} />
+                                                    {isDone ? "Marked as Done" : "Mark as Done"}
+                                                </button>
+                                            )}
 
-                                        {
-                                            <button className="flex items-center gap-2 rounded-full bg-[#ccff00] px-5 py-2 text-sm font-semibold text-black hover:bg-[#c2f106e1]">
-
-                                                <Check size={16} />
-
-                                                Mark as Done
-
+                                            <button
+                                                onClick={() => {
+                                                    if (activeTab === "today") {
+                                                        removeFromPlan(exercise.id);
+                                                    } else {
+                                                        removeFromSaved(exercise.id);
+                                                    }
+                                                }}
+                                                className="text-[#8A92A0] hover:text-white">
+                                                <X size={18} />
                                             </button>
-                                        }
 
-                                        <button className="text-[#8A92A0] hover:text-white">
-                                            <X size={18} />
-                                        </button>
+                                        </div>
 
                                     </div>
-
-                                </div>
-                            ))
+                                );
+                            })
                         }
                     </div>
                 )
